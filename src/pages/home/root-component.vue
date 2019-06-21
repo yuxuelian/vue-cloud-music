@@ -1,22 +1,23 @@
 <template>
   <drawer-component ref="drawerComponent">
     <div slot="drawerPage" class="drawer-page-content">
-      <div class="drawer-content" ref="pageContent">
-        <discover-component v-show="actionCurrent===0"></discover-component>
-        <mine-component v-show="actionCurrent===1"></mine-component>
-      </div>
-
-      <div class="drawer-header cu-bar bg-cloud-red" :style="style">
+      <div
+      class="drawer-header cu-bar bg-cloud-red"
+      :style="`height:${AppBarHeight+StatusBarHeight};padding-top:${StatusBarHeight}px;`"
+      >
         <div class="menu-btn" @click.prevent.stop="leftIconClick">
           <i class="cuIcon-pullleft text-white"></i>
         </div>
 
-        <div :style="[{top:StatusBar + 'px'}]" class="action-item-container">
-            <span class="action-item" :class="actionCurrent===0?'select':''"
-                  @click="clickTopItem(0)">发现</span>
-          <span class="action-item" :class="actionCurrent===1?'select':''"
-                @click="clickTopItem(1)">我的</span>
+        <div class="action-item-container">
+          <span class="action-item" :class="actionCurrent===0?'select':''" @click="clickTopItem(0)">发现</span>
+          <span class="action-item" :class="actionCurrent===1?'select':''" @click="clickTopItem(1)">我的</span>
         </div>
+      </div>
+
+      <div class="drawer-content" ref="pageContent">
+        <discover-component v-show="actionCurrent===0"></discover-component>
+        <mine-component v-show="actionCurrent===1"></mine-component>
       </div>
     </div>
 
@@ -41,25 +42,14 @@ export default {
   props: {},
   data() {
     return {
-      StatusBar: this.StatusBar,
-      CustomBar: this.CustomBar,
+      StatusBarHeight: this.StatusBarHeight,
+      AppBarHeight: this.AppBarHeight,
       isShowDrawer: false,
       actionCurrent: 0,
     }
   },
   watch: {},
-  computed: {
-    style() {
-      const StatusBar = this.StatusBar;
-      const CustomBar = this.CustomBar;
-      const bgImage = this.bgImage;
-      let style = `height:${CustomBar}px;padding-top:${StatusBar}px;`;
-      if (this.bgImage) {
-        style = `${style}background-image:url(${bgImage});`;
-      }
-      return style
-    }
-  },
+  computed: {},
   methods: {
     hideModal() {
       this.isShowDrawer = false
@@ -79,15 +69,11 @@ export default {
   created() {
   },
   mounted() {
-    this.$nextTick(() => {
-      if (!this.scroll) {
-        console.log(this.$refs.drawerPage)
-        this.scroll = new BScroll(this.$refs.pageContent, {
-          click: true
-        })
-      } else {
-      }
-    })
+    if (!this.scroll) {
+      this.scroll = new BScroll(this.$refs.pageContent, {
+        click: true
+      })
+    }
     setTimeout(() => {
       console.log('刷新')
       this.scroll.refresh()
@@ -101,18 +87,18 @@ export default {
   position absolute
   width 100%
   height 100%
+  display flex
+  flex-direction column
+
   .drawer-header
+    /*height通过style动态设置*/
     width 100%
-    position absolute
 
   .drawer-content
-    position absolute
     width 100%
-    top 84px
-    left 0
-    right 0
-    bottom 0
-    z-index 0
+    height 0
+    flex 1
+    overflow hidden
 
   .menu-btn
     position absolute

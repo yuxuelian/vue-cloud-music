@@ -1,10 +1,9 @@
 <template>
   <div class="root-component">
-    <cu-custom bgColor="bg-cloud-red" :isBack="true">
+     <app-bar-component>
       <div slot="backText">返回</div>
       <div slot="content">歌单详情</div>
-    </cu-custom>
-
+    </app-bar-component>
     <div class="song-list">
       <song-list-title :songListCount="200" :likeCount="100"></song-list-title>
       <song-item
@@ -21,9 +20,10 @@
 <script type="text/ecmascript-6">
 import SongItem from "./components/song-item"
 import SongListTitle from "./components/song-list-title"
+import AppBarComponent from "../../common/components/app-bar-component"
 export default {
   name: 'root-component',
-  components: {SongListTitle, SongItem},
+  components: {AppBarComponent, SongListTitle, SongItem},
   props: {},
   data() {
     return {

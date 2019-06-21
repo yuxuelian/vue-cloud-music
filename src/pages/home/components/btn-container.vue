@@ -1,7 +1,7 @@
 <template>
   <div class="btn-container">
     <div class="btn-item-container" v-for="(item,index) in btnData" :key="item.id">
-      <div class="image-container" @click="selectBtn(index,e)">
+      <div class="image-container" @click="selectBtn(index)">
         <img class="image" src="../../../images/cm4_disc_topbtn_daily-ip6@2x.png">
         <p v-if="index===0" class="current-day">{{currentDay}}</p>
       </div>
@@ -28,8 +28,9 @@ export default {
   watch: {},
   computed: {},
   methods: {
-    selectBtn(index, e) {
-      this.$emit('selectBtn', index, e)
+    selectBtn(index) {
+      console.log('点击按钮')
+      this.$emit('selectBtn', index)
     }
   },
   created() {
@@ -61,11 +62,11 @@ export default {
       justify-content center
       height 50px
       width 50px
-      border-radius 25px
+      border-radius 26px
       border 1px solid #D33A31
 
       &:active
-        background-color rgba(255, 0, 0, .2)
+        background-color blue
 
       .image
         width 50px

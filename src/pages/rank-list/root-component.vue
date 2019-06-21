@@ -1,16 +1,17 @@
 <template>
   <div class="root-component">
-    <cu-custom bgColor="bg-cloud-red" :isBack="true">
+    <app-bar-component>
       <span slot="backText">返回</span>
       <span slot="content">排行榜</span>
-    </cu-custom>
+    </app-bar-component>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import AppBarComponent from "../../common/components/app-bar-component"
 export default {
   name: 'root-component',
-  components: {},
+  components: {AppBarComponent},
   props: {},
   data() {
     return {}

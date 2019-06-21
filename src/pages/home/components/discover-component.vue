@@ -1,12 +1,10 @@
 <template>
   <div class="discover-component">
-<!--    <banner-component-->
-<!--    :swiperData="swiperData"-->
-<!--    @swiperClick="swiperClick"-->
-<!--    >-->
-<!--    </banner-component>-->
-
-    <div class="banner-placeholder"></div>
+    <banner-component
+    :swiperData="swiperData"
+    @swiperClick="swiperClick"
+    >
+    </banner-component>
 
     <btn-container
     :btnData="btnData"
@@ -90,25 +88,25 @@ export default {
           id: 0,
           imageSrc: '/src/images/cm4_disc_topbtn_daily-ip6@2x.png',
           name: '每日推荐',
-          toPageUrl: '/pages/day-recomend/index'
+          toPageName: 'day-recommend'
         },
         {
           id: 1,
           imageSrc: '/src/images/cm2_discover_icn_fm-ip6@2x.png',
           name: '歌单',
-          toPageUrl: '/pages/song-list/index'
+          toPageName: 'song-list'
         },
         {
           id: 2,
           imageSrc: '/src/images/cm2_discover_icn_upbill-ip6@2x.png',
           name: '排行榜',
-          toPageUrl: '/pages/rank-list/index'
+          toPageName: 'rank-list'
         },
         {
           id: 3,
           imageSrc: '../../../images/cm2_discover_icn_fm-ip6@2x.png',
           name: '电台',
-          toPageUrl: '/pages/broad-station/index'
+          toPageName: 'broad-station'
         },
       ],
       hotSongList: [],
@@ -124,7 +122,8 @@ export default {
       console.log('点击SwiperItem index= ' + index)
     },
     selectBtn(index) {
-      // TODO 路由跳转
+      const routeName = this.btnData[index].toPageName
+      this.$router.push({name: routeName})
     },
     clickMore1() {
       console.log('点击第一个更多')
@@ -152,7 +151,6 @@ export default {
         // 重构数据
         return {
           id: banner.targetId,
-          type: 'image',
           imageUrl: banner.imageUrl,
           url: banner.url
         }
@@ -222,8 +220,5 @@ export default {
   width 100%
   display flex
   flex-direction column
-  .banner-placeholder
-    background-color #5e00ff
-    height 200px
 </style>
 

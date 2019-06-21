@@ -627,7 +627,7 @@ radio.white.checked .uni-radio-input {
     justify-content: center;
     box-sizing: border-box;
     padding: 0 40px;
-    font-size: 24px;
+    font-size: 16px;
     height: 64px;
     line-height: 1;
     text-align: center;
@@ -1483,7 +1483,7 @@ button.cuIcon.lg {
     width: 100%;
     display: flex;
     align-items: center;
-    min-height: 58px;
+    min-height: 50px;
     justify-content: space-between;
 }
 
@@ -1552,7 +1552,7 @@ button.cuIcon.lg {
 
 .cu-bar .action:first-child {
     margin-left: 20px;
-    font-size: 30px;
+    font-size: 16px;
 }
 
 .cu-bar .action text.text-cut {
@@ -1947,15 +1947,13 @@ button.cuIcon.lg {
 }
 
 .nav .cu-item {
-    height: 90px;
-    display: inline-block;
-    line-height: 90px;
-    margin: 0 10px;
-    padding: 0 20px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
 }
 
 .nav .cu-item.cur {
-    border-bottom: 4px solid;
+    border-bottom: 2px solid;
 }
 
 /* ==================
@@ -2892,7 +2890,7 @@ scroll-view.cu-steps .cu-item {
 
 .grid {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     flex-flow: row wrap;
 }
 

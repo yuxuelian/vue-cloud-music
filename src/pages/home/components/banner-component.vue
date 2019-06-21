@@ -1,44 +1,29 @@
 <template>
-  <swiper class="card-swiper round-dot"
-          indicator-dots="true"
-          :current="currentIndex"
-          circular="true"
-          autoplay="true"
-          interval="5000"
-          duration="500"
-          @change="swiperChange"
-          indicator-color="#8799a3"
-          indicator-active-color="#0081ff"
+  <swiper
+  ref="mySwiper"
+  class="my-swiper"
+  :options="swiperOption"
+  @someSwiperEvent="someSwiperEvent"
   >
-    <swiper-item
+    <swiper-slide
+    class="my-swiper-item"
     v-for="(item,index) in swiperData"
     :key="item.id"
     @click="swiperClick"
     :class="currentIndex===index?'cur':''"
     >
-      <div class="swiper-item swiper-item-container">
-        <img
-        lazy-load
-        v-if="item.type==='image'"
-        :src="item.imageUrl"
-        mode="widthFix"
-        alt="轮播图"
-        class="swiper-view"
-        />
-        <video
-        v-if="item.type==='video'"
-        :src="item.videoUrl"
-        autoplay
-        loop
-        muted
-        :show-play-btn="false"
-        :controls="false"
-        objectFit="cover"
-        class="swiper-view"
-        >
-        </video>
+      <div class="swiper-item-container-parent">
+        <div class="swiper-item-container">
+          <img
+          :src="item.imageUrl"
+          alt="轮播图"
+          class="swiper-img"
+          />
+        </div>
       </div>
-    </swiper-item>
+    </swiper-slide>
+
+    <div class="swiper-pagination" slot="pagination"></div>
   </swiper>
 </template>
 
@@ -54,23 +39,31 @@ export default {
   },
   data() {
     return {
-      currentIndex: 0
+      currentIndex: 0,
+      swiperOption: {
+        loop: true,
+        preventClicks: false,
+        autoplay: true,
+        pagination: {
+          el: '.swiper-pagination',
+        },
+        effect: 'slide',
+      }
     }
   },
-  watch: {},
+  watch: {
+    swiperData(newvalue) {
+      console.log('------banner-component.vue-----')
+      console.log(newvalue)
+    }
+  },
   computed: {},
   methods: {
+    someSwiperEvent(e) {
+      console.log(e)
+    },
     swiperClick() {
-      this.$emit('swiperClick', this.currentIndex)
-    },
-    swiperChange(e) {
-      const index = e.target.current
-      this.currentIndex = index
-      this.$emit('swiperChange', index)
-    },
-    selectIndex(index) {
-      // 指定选择页面
-      this.currentIndex = index
+      console.log('点击轮播')
     }
   },
   created() {
@@ -81,16 +74,36 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-.swiper-item-container
-  position relative
-  width 100%
-  padding-bottom 36.8%
 
-  .swiper-view
-    position absolute
-    left 0
-    top 0
-    width 100%
-    height 100%
+.swiper-pagination >>> .swiper-pagination-bullet-active
+  background #D33A31 !important
+
+.my-swiper
+  width 100%
+  height 180px
+
+  .my-swiper-item
+    display flex
+    justify-content center
+    align-items center
+
+    .swiper-item-container-parent
+      width 90%
+      display flex
+      justify-content center
+      align-items center
+
+      .swiper-item-container
+        position relative
+        width 100%
+        padding-bottom 36.8%
+
+        .swiper-img
+          position absolute
+          left 0
+          top 0
+          width 100%
+          height 100%
+          border-radius 7px
 </style>
 

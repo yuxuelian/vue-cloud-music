@@ -58,8 +58,6 @@ export default {
     position absolute
     width 100%
     height 100%
-    left 0
-    top 0
     transition transform 0.4s
     transform translateX(0%)
     pointer-events all
@@ -72,8 +70,6 @@ export default {
     position absolute
     width 100%
     height 100%
-    top 0
-    left 0
     opacity 0
     color transparent
     background-color transparent
@@ -106,7 +102,6 @@ export default {
     pointer-events none
 
     &.show
-      transform translateX(0%)
       left 0
       opacity 1
       pointer-events all

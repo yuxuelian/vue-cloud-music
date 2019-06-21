@@ -22,7 +22,7 @@ export default new Router({
     },
     {
       path: '/rank-list',
-      name: 'rank-listn',
+      name: 'rank-list',
       component: () => import('../pages/rank-list/root-component.vue')
     },
     {

@@ -1,6 +1,6 @@
 <template>
   <div class="grid">
-    <div class="grid-item" v-for="(item,index) in gridData" :key="item.id"
+    <div class="grid-item margin-tb-xs" v-for="(item,index) in gridData" :key="item.id"
          @click="clickItem(index)">
       <div class="img-container">
         <img class="img" :src="item.imageUrl"/>
@@ -27,6 +27,7 @@ export default {
   computed: {},
   methods: {
     clickItem(index) {
+      console.log('grid-component index = ' + index)
       this.$emit('selectGridItem', index)
     }
   },
@@ -40,7 +41,8 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
 .grid-item
-  width 125px
+  width 32%
+
   .img-container
     width 100%
     padding-bottom 100%

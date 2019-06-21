@@ -1,28 +1,30 @@
 <template>
   <div class="root-tab-layout solid-bottom">
-    <scroll-view
-    scroll-x
-    scroll-with-animation
-    class="bg-white nav tab-layout"
-    :scroll-left="scrollLeft"
+    <div
+    class="tab-layout bg-white nav"
+    ref="scrollViewX"
     >
-      <div
-      v-for="(item,index) in tabData"
-      :key="item.id"
-      class="cu-item"
-      :class="currentTabIndex===index?'text-cloud-red cur':''"
-      @click="tabSelectChange(index,e)"
-      >
-        {{item.name}}
+      <div class="tab-content">
+        <span
+        v-for="(item,index) in tabData"
+        :key="item.id"
+        class="cu-item tab-item"
+        :class="currentTabIndex===index?'text-cloud-red cur':''"
+        @click="tabSelectChange(index)"
+        ref="tabItem"
+        >
+          {{item.name}}
+        </span>
       </div>
-    </scroll-view>
+    </div>
     <div class="right-btn" @click="clickTabRightBtn">
-      <i class="cuIcon-apps text-cloud-red btn-icon"></i>
+      <i class="cuIcon-apps text-cloud-red"></i>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import BScroll from 'better-scroll'
 export default {
   name: 'tab-layout',
   components: {},
@@ -41,12 +43,25 @@ export default {
   data() {
     return {}
   },
-  watch: {},
-  computed: {
-    scrollLeft() {
-      return (this.currentTabIndex - 1) * 50
+  watch: {
+    tabData() {
+      this.$nextTick(() => {
+        if (this.scroll) {
+          this.scroll.refresh()
+        }
+      })
+    },
+    currentTabIndex(newValue) {
+      if (this.scroll) {
+        if (newValue > 1) {
+          this.scroll.scrollToElement(this.$refs.tabItem[newValue - 1], 300)
+        }else {
+          this.scroll.scrollToElement(this.$refs.tabItem[0], 300)
+        }
+      }
     }
   },
+  computed: {},
   methods: {
     tabSelectChange(index) {
       this.$emit('tabSelectChange', index)
@@ -58,6 +73,13 @@ export default {
   created() {
   },
   mounted() {
+    if (!this.scroll) {
+      this.scroll = new BScroll(this.$refs.scrollViewX, {
+        scrollX: true,
+        scrollY: false,
+        click: true
+      })
+    }
   }
 }
 </script>
@@ -65,22 +87,31 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus" scoped>
 .root-tab-layout
   display flex
-  flex-direction row
-  width 100%
-
-  .tab-layout
-    flex 1
-    height 90 rpx
-    width 0
 
   .right-btn
-    height 90 rpx
-    width 90 rpx
+    height 40px
+    width 40px
     display flex
     align-items center
     justify-content center
 
-    .btn-icon
-      font-size 20PX
+  .tab-layout
+    height 100%
+    width 0
+    flex 1
+    display flex
+    overflow hidden
+
+    .tab-content
+      height 100%
+      width auto
+      display flex
+      flex-direction row
+      font-size 0
+
+      .tab-item
+        margin 0 4px
+        font-size 16px
+        display inline-block
 </style>
 

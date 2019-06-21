@@ -1,10 +1,10 @@
 <template>
   <drawer-component ref="drawerComponent">
     <div class="flex-column" slot="drawerPage">
-      <cu-custom bgColor="bg-cloud-red" :isBack="true">
+      <app-bar-component>
         <span slot="backText">返回</span>
         <span slot="content">电台</span>
-      </cu-custom>
+      </app-bar-component>
 
       <div class="cu-btn" @click="showDrawer">显示侧边栏</div>
     </div>
@@ -17,9 +17,10 @@
 <script type="text/ecmascript-6">
 import DrawerComponent from "../../common/components/drawer-component"
 import ListTitleComponent from "../../common/components/list-title-component"
+import AppBarComponent from "../../common/components/app-bar-component"
 export default {
   name: 'root-component',
-  components: {ListTitleComponent, DrawerComponent},
+  components: {AppBarComponent, ListTitleComponent, DrawerComponent},
   props: {},
   data() {
     return {

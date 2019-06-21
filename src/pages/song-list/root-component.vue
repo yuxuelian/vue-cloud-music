@@ -1,10 +1,12 @@
 <template>
   <drawer-component ref="drawerComponent">
     <div slot="drawerPage" class="drawer-page-content">
-      <cu-custom bgColor="bg-cloud-red" :isBack="true">
+
+      <app-bar-component>
         <span slot="backText">返回</span>
         <span slot="content">歌单广场</span>
-      </cu-custom>
+      </app-bar-component>
+
       <tab-layout
       ref="tabLayout"
       :tabData="hotPlaylist"
@@ -15,27 +17,29 @@
       </tab-layout>
 
       <swiper
-      class="swiper"
-      :current="currentPageIndex"
-      @change="pageSelected"
+      class="swiper-view-pager"
+      ref="swiperViewPager"
+      :options="viewPagerOptions"
+      @slideChange="slideChange"
       >
-        <swiper-item
-        class="swiper-item"
+        <swiper-slide
+        class="pager-item"
         v-for="(playlistData,index) in hotPlaylist"
         :key="index"
         >
-          <scroll-view
-          scroll-y
-          class="swiper-item-content"
+          <div
+          class="page-item-wrapper"
+          id="pageItemWrapper"
           >
             <grid-component
             :gridData="playlistData.listData"
             @selectGridItem="selectGridItem"
             >
             </grid-component>
-          </scroll-view>
-        </swiper-item>
+          </div>
+        </swiper-slide>
       </swiper>
+
     </div>
 
     <div slot="drawerWindow"
@@ -58,12 +62,15 @@ import TabLayout from "./components/tab-layout"
 import DrawerComponent from "../../common/components/drawer-component"
 import BtnGroup from "./components/btn-group"
 import GridComponent from "../../common/components/grid-component"
+import AppBarComponent from "../../common/components/app-bar-component"
+import BScroll from 'better-scroll'
 export default {
   name: 'root-component',
-  components: {GridComponent, BtnGroup, DrawerComponent, TabLayout},
+  components: {AppBarComponent, GridComponent, BtnGroup, DrawerComponent, TabLayout},
   props: {},
   data() {
     return {
+      viewPagerOptions: {},
       StatusBar: this.StatusBar,
       hotPlaylist: [],
       allPlaylist: [],
@@ -71,7 +78,13 @@ export default {
       currentPageIndex: 0
     }
   },
-  watch: {},
+  watch: {
+    playlistDatas() {
+      if (this.scroll) {
+        this.scroll.refresh()
+      }
+    }
+  },
   computed: {},
   methods: {
     clickTabRightBtn() {
@@ -79,6 +92,7 @@ export default {
     },
     tabSelectChange(index) {
       this.currentPageIndex = index
+      this.$refs.swiperViewPager.swiper.slideTo(index)
     },
     selectPlaylist(name) {
       console.log('选择的歌单是 name = ' + name)
@@ -88,8 +102,8 @@ export default {
       const playlistId = this.hotPlaylist[this.currentPageIndex].listData[index].id
       // TODO 路由跳转
     },
-    pageSelected(e) {
-      this.currentPageIndex = e.target.current
+    slideChange() {
+      this.currentPageIndex = this.$refs.swiperViewPager.swiper.activeIndex
     },
     _groupBy(array, groupBy) {
       const res = []
@@ -144,6 +158,9 @@ export default {
         })
         .catch((error) => {
         })
+    },
+    testScroll() {
+      this.currentPageIndex = (this.currentPageIndex + 1) % this.hotPlaylist.length
     }
   },
   beforeCreate() {
@@ -160,6 +177,12 @@ export default {
     this.currentPageIndex = 0
     this.requestPlaylistHot()
     this.requestAllPlaylist()
+    if (!this.scroll) {
+      console.log(this.$refs)
+      this.scroll = new BScroll('#pageItemWrapper', {
+        click: true
+      })
+    }
   },
   beforeUpdate() {
     console.log('song-list beforeUpdate')
@@ -183,16 +206,16 @@ export default {
   width 100%
   height 100%
 
-  .swiper
+  .swiper-view-pager
     width 100%
     height 0
     flex 1
 
-    .swiper-item
+    .pager-item
       width 100%
       height 100%
 
-      .swiper-item-content
+      .page-item-wrapper
         width 100%
         height 100%
 </style>
