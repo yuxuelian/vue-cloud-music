@@ -133,7 +133,13 @@ export default {
     },
     selectGridItem0(index) {
       const playlistId = this.hotSongList[index].id
-      // TODO 路由跳转
+      // 跳转路由
+      this.$router.push({
+        name: 'song-list-detail',
+        params: {
+          playlistId
+        },
+      })
     },
     selectGridItem1(index) {
       console.log('点击1  index = ' + index)

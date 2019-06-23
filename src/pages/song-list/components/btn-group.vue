@@ -1,15 +1,12 @@
 <template>
   <div class="btn-group">
     <list-title-component :title="groupTitle"></list-title-component>
-    <div class="grid padding-sm">
-      <button
-      v-for="(item,index) in groupData"
-      :key="index"
-      class="cu-btn round nav text-sm text-center margin-tb-xs text-white bg-gradual-pink"
-      @click="selectPlaylist(item.name)"
-      >
-        {{item.name}}
-      </button>
+    <div class="grid-container">
+      <div class="grid-cell" v-for="(item,index1) in groupData" :key="index1">
+        <div class="btn" @click="selectPlaylist(item.name)">{{item.name}}</div>
+      </div>
+      <!-- 主要用于最后占位,达到流布局效果 -->
+      <div class="grid-cell" v-for="(item,index2) in fillEndData" :key="`end-${index2}`"></div>
     </div>
   </div>
 </template>
@@ -95,7 +92,16 @@ export default {
     return {}
   },
   watch: {},
-  computed: {},
+  computed: {
+    fillEndData() {
+      const mod = this.groupData.length % 3
+      if (mod !== 0) {
+        return new Array(3 - mod).keys()
+      } else {
+        return []
+      }
+    }
+  },
   methods: {
     selectPlaylist(name) {
       this.$emit('selectPlaylist', name)
@@ -117,8 +123,33 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
 .btn-group
+  width 100%
   display flex
   flex-direction column
-  width 100%
+
+  .grid-container
+    width 100%
+    display flex
+    flex-direction row
+    flex-flow wrap
+    justify-content space-evenly
+
+    .grid-cell
+      height 40px
+      width 32%
+      display flex
+      align-items center
+      justify-content center
+
+      .btn
+        width 80px
+        height 30px
+        line-height 30px
+        text-align center
+        box-sizing border-box
+        border-radius 20px
+        background-color #F0F0F0
+        color #303030
+        font-size 10px
 </style>
 

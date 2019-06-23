@@ -1,9 +1,13 @@
 <template>
-  <div class="root-component">
-     <app-bar-component>
+  <div class="root-component" ref="windowBox">
+    <app-bar-component :bg-color="appBarBgColor">
       <div slot="backText">返回</div>
       <div slot="content">歌单详情</div>
     </app-bar-component>
+    <song-page-des
+    :playlistImage="coverImgUrl"
+    :playlist="playlist"
+    ></song-page-des>
     <div class="song-list">
       <song-list-title :songListCount="200" :likeCount="100"></song-list-title>
       <song-item
@@ -14,6 +18,11 @@
       >
       </song-item>
     </div>
+
+    <div class="blur-bg">
+      <img :src="coverImgUrl" class="bg-img">
+      <div class="bg-shade"></div>
+    </div>
   </div>
 </template>
 
@@ -21,27 +30,40 @@
 import SongItem from "./components/song-item"
 import SongListTitle from "./components/song-list-title"
 import AppBarComponent from "../../common/components/app-bar-component"
+import SongPageDes from "./components/song-page-des"
 export default {
   name: 'root-component',
-  components: {AppBarComponent, SongListTitle, SongItem},
+  components: {SongPageDes, AppBarComponent, SongListTitle, SongItem},
   props: {},
   data() {
     return {
+      appBarAlpha: 0,
+      coverImgUrl: '',
+      playlist: {},
       playlistSongs: [],
       playlistDetailInfo: {}
     }
   },
   watch: {},
-  computed: {},
+  computed: {
+    appBarBgColor() {
+      return `rgba(211,58,49,${this.appBarAlpha})`
+    }
+  },
   methods: {
-    arJoin(ars) {
-      const arRes = ''
-      ars.forEach((ar) => {
-      })
-      return arRes
-    },
     async requestPlaylistDetail(playlistId) {
       const resData = (await this.$axios.get(`/playlist/detail?id=${playlistId}`)).data
+      console.log(resData)
+      // 获取背景图片
+      this.coverImgUrl = resData.playlist.coverImgUrl
+      this.playlist = {
+        name: resData.playlist.name,
+        description: resData.playlist.description,
+        creator: {
+          nickname: resData.playlist.creator.nickname,
+          avatarUrl: resData.playlist.creator.avatarUrl,
+        }
+      }
       // 歌单中的歌曲列表
       this.playlistSongs = resData.playlist.tracks.map((track) => {
         return {
@@ -67,10 +89,29 @@ export default {
   created() {
   },
   mounted() {
+  },
+  activated() {
     this.playlistSongs = []
     this.playlistDetailInfo = {}
-    const playlistId = this.$mp.query.playlistId
+    this.coverImgUrl = ''
+    this.playlist = {
+      name: '',
+      description: '',
+      creator: {
+        nickname: '',
+        avatarUrl: '',
+      }
+    }
+    const playlistId = this.$route.params.playlistId
     this.requestPlaylistDetail(playlistId)
+    window.onscroll = () => {
+      if (window.pageYOffset <= 200) {
+        this.appBarAlpha = window.pageYOffset / 200
+      }
+    }
+  },
+  deactivated() {
+    window.onscroll = undefined
   }
 }
 </script>
@@ -78,11 +119,38 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus" scoped>
 .root-component
   width 100%
+  display flex
+  flex-direction column
+  position relative
 
   .song-list
     width 100%
-    display flex
-    flex-direction column
-    align-items center
+    background-color white
+    border-top-left-radius 25px
+    border-top-right-radius 25px
+
+  .blur-bg
+    position fixed
+    left 0
+    top 0
+    width 100%
+    height 100%
+    z-index -1
+    filter blur(100px)
+
+    .bg-img
+      position absolute
+      left 0
+      top 0
+      width 100%
+      height 100%
+
+    .bg-shade
+      position absolute
+      left 0
+      top 0
+      width 100%
+      height 100%
+      background-color rgba(0, 0, 0, .3)
 </style>
 

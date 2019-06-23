@@ -24,7 +24,7 @@ export default {
       required: true
     },
     song: {
-      type: String,
+      type: Object,
       required: true
     }
   },
@@ -45,30 +45,6 @@ export default {
     }
   },
   methods: {},
-  beforeCreate() {
-    console.log('song-item beforeCreate')
-  },
-  created() {
-    console.log('song-item created')
-  },
-  beforeMount() {
-    console.log('song-item beforeMount')
-  },
-  mounted() {
-    console.log('song-item mounted')
-  },
-  beforeUpdate() {
-    console.log('song-item beforeUpdate')
-  },
-  updated() {
-    console.log('song-item update')
-  },
-  beforeDestroy() {
-    console.log('song-item beforeDestroy')
-  },
-  destroyed() {
-    console.log('song-item destroyed')
-  },
 }
 </script>
 

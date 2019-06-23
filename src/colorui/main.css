@@ -621,14 +621,14 @@ radio.white.checked .uni-radio-input {
 
 .cu-btn {
     position: relative;
-    border: 0px;
+    border: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    padding: 0 40px;
+    padding: 0 20px;
     font-size: 16px;
-    height: 64px;
+    height: 40px;
     line-height: 1;
     text-align: center;
     text-decoration: none;
@@ -3125,6 +3125,11 @@ scroll-view.cu-steps .cu-item {
     margin-right: 50px;
 }
 
+.margin-tb-mini {
+    margin-top: 2px;
+    margin-bottom: 6px;
+}
+
 .margin-tb-xs {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -3770,7 +3775,7 @@ scroll-view.cu-steps .cu-item {
 }
 
 .text-sl {
-    font-size: 40px;
+    font-size: 30px;
 }
 
 .text-xsl {

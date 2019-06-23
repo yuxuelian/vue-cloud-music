@@ -1,9 +1,9 @@
 <template>
   <div class="grid">
-    <div class="grid-item margin-tb-xs" v-for="(item,index) in gridData" :key="item.id"
+    <div class="grid-item margin-tb-mini" v-for="(item,index) in gridData" :key="item.id"
          @click="clickItem(index)">
       <div class="img-container">
-        <img class="img" :src="item.imageUrl"/>
+        <img class="img" v-lazy="item.imageUrl">
       </div>
       <p class="text-sm text-black text-line-2">{{item.name}}</p>
     </div>
@@ -27,14 +27,12 @@ export default {
   computed: {},
   methods: {
     clickItem(index) {
-      console.log('grid-component index = ' + index)
       this.$emit('selectGridItem', index)
     }
   },
   created() {
   },
   mounted() {
-    console.log(this.gridData)
   }
 }
 </script>

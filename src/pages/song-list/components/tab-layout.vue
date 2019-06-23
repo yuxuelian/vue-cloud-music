@@ -55,7 +55,7 @@ export default {
       if (this.scroll) {
         if (newValue > 1) {
           this.scroll.scrollToElement(this.$refs.tabItem[newValue - 1], 300)
-        }else {
+        } else {
           this.scroll.scrollToElement(this.$refs.tabItem[0], 300)
         }
       }

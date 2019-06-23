@@ -5,7 +5,7 @@
       <span class="text-lg text-black">{{title}}</span>
     </div>
 
-    <div v-if="rightText" class='action sm margin-right-sm' @click="clickRight">
+    <div v-if="rightText" class='action sm margin-right-xs' @click="clickRight">
       <span class="text-lg text-black">{{rightText}}</span>
       <span class='cuIcon-right text-gray'></span>
     </div>

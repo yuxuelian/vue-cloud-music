@@ -2,7 +2,7 @@
   <div class="btn-container">
     <div class="btn-item-container" v-for="(item,index) in btnData" :key="item.id">
       <div class="image-container" @click="selectBtn(index)">
-        <img class="image" src="../../../images/cm4_disc_topbtn_daily-ip6@2x.png">
+        <img class="image" src="../../../../static/images/cm4_disc_topbtn_daily-ip6@2x.png">
         <p v-if="index===0" class="current-day">{{currentDay}}</p>
       </div>
       <p class="btn-name text-black">{{item.name}}</p>

@@ -27,32 +27,27 @@
         v-for="(playlistData,index) in hotPlaylist"
         :key="index"
         >
-          <div
-          class="page-item-wrapper"
-          id="pageItemWrapper"
-          >
-            <grid-component
-            :gridData="playlistData.listData"
-            @selectGridItem="selectGridItem"
-            >
-            </grid-component>
-          </div>
+          <pager-item-content :gridData="playlistData.listData"></pager-item-content>
         </swiper-slide>
       </swiper>
-
     </div>
 
-    <div slot="drawerWindow"
-         class="flex-column bg-gradual-blue"
-         :style="[{'padding-top':StatusBar + 'px'}]">
-      <btn-group
-      v-for="(item,index) in allPlaylist"
-      :key="index"
-      :groupTitle="item.categoryName"
-      :groupData="item.playlist"
-      @selectPlaylist="selectPlaylist"
-      >
-      </btn-group>
+    <div
+    slot="drawerWindow"
+    class="drawer-window bg-white"
+    :style="[{'padding-top':StatusBar + 'px'}]"
+    ref="drawerWindowWrapper"
+    >
+      <div class="flex-column drawer-window-content">
+        <btn-group
+        v-for="(item,index) in allPlaylist"
+        :key="index"
+        :groupTitle="item.categoryName"
+        :groupData="item.playlist"
+        @selectPlaylist="selectPlaylist"
+        >
+        </btn-group>
+      </div>
     </div>
   </drawer-component>
 </template>
@@ -63,10 +58,14 @@ import DrawerComponent from "../../common/components/drawer-component"
 import BtnGroup from "./components/btn-group"
 import GridComponent from "../../common/components/grid-component"
 import AppBarComponent from "../../common/components/app-bar-component"
+import PagerItemContent from "./components/pager-item-content"
 import BScroll from 'better-scroll'
 export default {
   name: 'root-component',
-  components: {AppBarComponent, GridComponent, BtnGroup, DrawerComponent, TabLayout},
+  components: {
+    PagerItemContent,
+    AppBarComponent, GridComponent, BtnGroup, DrawerComponent, TabLayout
+  },
   props: {},
   data() {
     return {
@@ -79,10 +78,12 @@ export default {
     }
   },
   watch: {
-    playlistDatas() {
-      if (this.scroll) {
-        this.scroll.refresh()
-      }
+    allPlaylist() {
+      this.$nextTick(() => {
+        if (this.scroll) {
+          this.scroll.refresh()
+        }
+      })
     }
   },
   computed: {},
@@ -95,12 +96,8 @@ export default {
       this.$refs.swiperViewPager.swiper.slideTo(index)
     },
     selectPlaylist(name) {
-      console.log('选择的歌单是 name = ' + name)
+      console.log('选择的歌单类型是 name = ' + name)
       this.$refs.drawerComponent.hideDrawer()
-    },
-    selectGridItem(index) {
-      const playlistId = this.hotPlaylist[this.currentPageIndex].listData[index].id
-      // TODO 路由跳转
     },
     slideChange() {
       this.currentPageIndex = this.$refs.swiperViewPager.swiper.activeIndex
@@ -159,18 +156,12 @@ export default {
         .catch((error) => {
         })
     },
-    testScroll() {
-      this.currentPageIndex = (this.currentPageIndex + 1) % this.hotPlaylist.length
-    }
   },
   beforeCreate() {
-    console.log('song-list beforeCreate')
   },
   created() {
-    console.log('song-list created')
   },
   beforeMount() {
-    console.log('song-list beforeMount')
   },
   mounted() {
     // 启动的时候选择到第0页
@@ -178,28 +169,32 @@ export default {
     this.requestPlaylistHot()
     this.requestAllPlaylist()
     if (!this.scroll) {
-      console.log(this.$refs)
-      this.scroll = new BScroll('#pageItemWrapper', {
+      this.scroll = new BScroll(this.$refs.drawerWindowWrapper, {
         click: true
       })
     }
+    window.onreset = () => {
+      if (this.scroll) {
+        this.scroll.refresh()
+      }
+    }
   },
   beforeUpdate() {
-    console.log('song-list beforeUpdate')
   },
   updated() {
-    console.log('song-list update')
   },
   beforeDestroy() {
-    console.log('song-list beforeDestroy')
   },
   destroyed() {
-    console.log('song-list destroyed')
   }
 }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
+.drawer-window
+  width 100%
+  height 100%
+
 .drawer-page-content
   display flex
   flex-direction column

@@ -1,30 +1,23 @@
 <template>
-  <swiper
-  ref="mySwiper"
-  class="my-swiper"
-  :options="swiperOption"
-  @someSwiperEvent="someSwiperEvent"
-  >
-    <swiper-slide
-    class="my-swiper-item"
-    v-for="(item,index) in swiperData"
-    :key="item.id"
-    @click="swiperClick"
-    :class="currentIndex===index?'cur':''"
-    >
-      <div class="swiper-item-container-parent">
-        <div class="swiper-item-container">
-          <img
-          :src="item.imageUrl"
-          alt="轮播图"
-          class="swiper-img"
-          />
-        </div>
-      </div>
-    </swiper-slide>
-
-    <div class="swiper-pagination" slot="pagination"></div>
-  </swiper>
+  <div class="swiper-super-wrapper">
+    <div class="swiper-parent-wrapper">
+      <swiper
+      ref="mySwiper"
+      class="my-swiper"
+      :options="swiperOption"
+      v-if="swiperData.length>0"
+      @tap="swiperClick"
+      >
+        <swiper-slide
+        v-for="(item,index) in swiperData"
+        :key="index"
+        >
+          <img :src="item.imageUrl" class="swiper-img" alt="轮播图">
+        </swiper-slide>
+        <div class="swiper-pagination" slot="pagination"></div>
+      </swiper>
+    </div>
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
@@ -51,19 +44,12 @@ export default {
       }
     }
   },
-  watch: {
-    swiperData(newvalue) {
-      console.log('------banner-component.vue-----')
-      console.log(newvalue)
-    }
-  },
+  watch: {},
   computed: {},
   methods: {
-    someSwiperEvent(e) {
-      console.log(e)
-    },
     swiperClick() {
-      console.log('点击轮播')
+      const index = this.$refs.mySwiper.swiper.realIndex
+      console.log('当前index = ' + index)
     }
   },
   created() {
@@ -78,32 +64,21 @@ export default {
 .swiper-pagination >>> .swiper-pagination-bullet-active
   background #D33A31 !important
 
-.my-swiper
+.swiper-super-wrapper
   width 100%
-  height 180px
 
-  .my-swiper-item
-    display flex
-    justify-content center
-    align-items center
+  .swiper-parent-wrapper
+    position relative
+    width 100%
+    padding-bottom 36.8%
 
-    .swiper-item-container-parent
-      width 90%
-      display flex
-      justify-content center
-      align-items center
+    .my-swiper
+      position absolute
+      width 100%
+      height 100%
 
-      .swiper-item-container
-        position relative
+      .swiper-img
         width 100%
-        padding-bottom 36.8%
-
-        .swiper-img
-          position absolute
-          left 0
-          top 0
-          width 100%
-          height 100%
-          border-radius 7px
+        height 100%
 </style>
 
