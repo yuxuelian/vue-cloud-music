@@ -58,19 +58,13 @@ export default {
   watch: {},
   computed: {},
   methods: {
-    hideModal() {
-      this.isShowDrawer = false
-    },
     leftIconClick() {
       // 显示侧滑菜单
-      this.$refs.drawerComponent.showDrawer()
+      // this.$refs.drawerComponent.showDrawer()
+      this.$router.push({name: 'login'})
+      // console.log(document.cookie)
+      // console.log(navigator.userAgent)
     },
-    clickTopItem(index) {
-      this.actionCurrent = index
-    },
-    clickTestBtn() {
-      console.log('点击侧边栏')
-    }
   },
   created() {
   },

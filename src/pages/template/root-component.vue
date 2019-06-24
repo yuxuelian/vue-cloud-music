@@ -1,16 +1,22 @@
 <template>
   <div class="root-component">
-    <cu-custom bgColor="bg-cloud-red" :isBack="true">
-      <div slot="backText">返回</div>
-      <div slot="content">模板页</div>
-    </cu-custom>
+    <app-bar-component>
+      <span slot="backText">返回</span>
+      <span slot="content">模板页</span>
+    </app-bar-component>
+    <div class="content">
+      模板页
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import AppBarComponent from "../../common/components/app-bar-component"
 export default {
   name: 'root-component',
-  components: {},
+  components: {
+    AppBarComponent
+  },
   props: {},
   data() {
     return {}
@@ -26,6 +32,14 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
+.root-component
+  display flex
+  flex-direction column
+  width 100%
+  .content
+    width 100%
+    font-size 16px
+    color #303030
 
 </style>
 

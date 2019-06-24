@@ -12,6 +12,9 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
 .mine-component
+  width 100%
   display flex
   flex-direction column
+  font-size 16px
+  color #303030
 </style>

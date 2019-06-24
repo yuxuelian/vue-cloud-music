@@ -25,6 +25,11 @@ export default new Router({
       ]
     },
     {
+      path: '/login',
+      name: 'login',
+      component: () => import('../pages/login/root-component')
+    },
+    {
       path: '/broad-station',
       name: 'broad-station',
       component: () => import('../pages/broad-station/root-component')
