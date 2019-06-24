@@ -1,6 +1,6 @@
 <template>
   <drawer-component ref="drawerComponent">
-    <div slot="drawerPage" class="drawer-page-content">
+    <div slot="drawerPage" class="drawer-page-container">
       <div
       class="drawer-header cu-bar bg-cloud-red"
       :style="`height:${AppBarHeight+StatusBarHeight};padding-top:${StatusBarHeight}px;`"
@@ -10,34 +10,41 @@
         </div>
 
         <div class="action-item-container">
-          <span class="action-item" :class="actionCurrent===0?'select':''" @click="clickTopItem(0)">发现</span>
-          <span class="action-item" :class="actionCurrent===1?'select':''" @click="clickTopItem(1)">我的</span>
+          <router-link
+          tag="span"
+          class="action-item"
+          to="home-discover"
+          >
+            发现
+          </router-link>
+          <router-link
+          tag="span"
+          class="action-item"
+          to="home-mine"
+          >
+            我的
+          </router-link>
         </div>
       </div>
-
-      <div class="drawer-content" ref="pageContent">
-        <discover-component v-show="actionCurrent===0"></discover-component>
-        <mine-component v-show="actionCurrent===1"></mine-component>
-      </div>
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
     </div>
 
-    <div slot="drawerWindow" class="flex-column bg-gradual-blue">
-      侧边栏
+    <div slot="drawerWindow" class="slide-container bg-gradual-blue">
+      <drawer-slide-component></drawer-slide-component>
     </div>
   </drawer-component>
 </template>
 
 <script type="text/ecmascript-6">
-import DiscoverComponent from "./components/discover-component";
-import MineComponent from "./components/mine-component";
 import DrawerComponent from "../../common/components/drawer-component"
-import BScroll from 'better-scroll'
+import DrawerSlideComponent from "./sub/drawer-slide-component"
 export default {
   name: 'index',
   components: {
+    DrawerSlideComponent,
     DrawerComponent,
-    MineComponent,
-    DiscoverComponent,
   },
   props: {},
   data() {
@@ -55,7 +62,6 @@ export default {
       this.isShowDrawer = false
     },
     leftIconClick() {
-      console.log('点击打开侧边栏 leftIconClick')
       // 显示侧滑菜单
       this.$refs.drawerComponent.showDrawer()
     },
@@ -69,21 +75,12 @@ export default {
   created() {
   },
   mounted() {
-    if (!this.scroll) {
-      this.scroll = new BScroll(this.$refs.pageContent, {
-        click: true
-      })
-    }
-    setTimeout(() => {
-      console.log('刷新')
-      this.scroll.refresh()
-    }, 1000)
   }
 }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-.drawer-page-content
+.drawer-page-container
   position absolute
   width 100%
   height 100%
@@ -93,12 +90,6 @@ export default {
   .drawer-header
     /*height通过style动态设置*/
     width 100%
-
-  .drawer-content
-    width 100%
-    height 0
-    flex 1
-    overflow hidden
 
   .menu-btn
     position absolute
@@ -113,6 +104,7 @@ export default {
 
   .action-item-container
     margin 0 auto
+    font-size 16px
 
     .action-item
       color #D0D0D0
@@ -121,7 +113,13 @@ export default {
       &:last-child
         margin-right 0
 
-      &.select
+      &.router-link-active
         color white
+
+.slide-container
+  width 100%
+  height 100%
+  font-size 16px
+  color white
 </style>
 

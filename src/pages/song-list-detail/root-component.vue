@@ -9,7 +9,12 @@
     :playlist="playlist"
     ></song-page-des>
     <div class="song-list">
-      <song-list-title :songListCount="200" :likeCount="100"></song-list-title>
+      <song-list-title
+      :songListCount="trackCount"
+      :likeCount="subscribedCount"
+      :isFixedPosition="isFixedListTitle"
+      >
+      </song-list-title>
       <song-item
       v-for="(item,index) in playlistSongs"
       :key="item.id"
@@ -39,9 +44,19 @@ export default {
     return {
       appBarAlpha: 0,
       coverImgUrl: '',
-      playlist: {},
+      subscribedCount: 0,
+      trackCount: 0,
+      playlist: {
+        name: '',
+        description: '',
+        creator: {
+          nickname: '',
+          avatarUrl: '',
+        }
+      },
       playlistSongs: [],
-      playlistDetailInfo: {}
+      playlistDetailInfo: {},
+      isFixedListTitle: false
     }
   },
   watch: {},
@@ -53,17 +68,24 @@ export default {
   methods: {
     async requestPlaylistDetail(playlistId) {
       const resData = (await this.$axios.get(`/playlist/detail?id=${playlistId}`)).data
-      console.log(resData)
       // 获取背景图片
       this.coverImgUrl = resData.playlist.coverImgUrl
+      // 歌单描述信息
       this.playlist = {
         name: resData.playlist.name,
         description: resData.playlist.description,
         creator: {
           nickname: resData.playlist.creator.nickname,
           avatarUrl: resData.playlist.creator.avatarUrl,
-        }
+        },
+        playCount: resData.playlist.playCount,
+        commentCount: resData.playlist.commentCount,
+        shareCount: resData.playlist.shareCount,
       }
+      // 订阅总数
+      this.subscribedCount = resData.playlist.subscribedCount
+      // 歌单歌曲总数
+      this.trackCount = resData.playlist.trackCount
       // 歌单中的歌曲列表
       this.playlistSongs = resData.playlist.tracks.map((track) => {
         return {
@@ -106,7 +128,11 @@ export default {
     this.requestPlaylistDetail(playlistId)
     window.onscroll = () => {
       if (window.pageYOffset <= 200) {
-        this.appBarAlpha = window.pageYOffset / 200
+        this.appBarAlpha = (window.pageYOffset / 200) * .6
+        this.isFixedListTitle = false
+      } else {
+        // 固定listTitle
+        this.isFixedListTitle = true
       }
     }
   },
@@ -122,6 +148,7 @@ export default {
   display flex
   flex-direction column
   position relative
+  overflow hidden
 
   .song-list
     width 100%

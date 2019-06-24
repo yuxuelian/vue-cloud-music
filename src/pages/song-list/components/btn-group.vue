@@ -12,7 +12,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import ListTitleComponent from "../../../common/components/list-title-component"
+import ListTitleComponent from "../../home/components/list-title-component"
 const colorList = [
   {
     title: '嫣红',

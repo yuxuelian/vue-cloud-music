@@ -85,10 +85,10 @@ export default {
     align-items center
     margin-left 10px
     z-index 100
+    font-size 14px
 
     .back-icon
-      margin-top 3px
-      margin-right 2px
+      margin-right 3px
 
   .bar-title
     position absolute
@@ -97,5 +97,6 @@ export default {
     display flex
     align-items center
     justify-content center
+    font-size 16px
 </style>
 

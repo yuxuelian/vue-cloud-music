@@ -45,11 +45,11 @@ export default {
   },
   watch: {
     tabData() {
-      this.$nextTick(() => {
-        if (this.scroll) {
+      if (this.scroll) {
+        this.$nextTick(() => {
           this.scroll.refresh()
-        }
-      })
+        })
+      }
     },
     currentTabIndex(newValue) {
       if (this.scroll) {
@@ -94,6 +94,7 @@ export default {
     display flex
     align-items center
     justify-content center
+    font-size 18px
 
   .tab-layout
     height 100%

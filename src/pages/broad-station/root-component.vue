@@ -16,7 +16,7 @@
 
 <script type="text/ecmascript-6">
 import DrawerComponent from "../../common/components/drawer-component"
-import ListTitleComponent from "../../common/components/list-title-component"
+import ListTitleComponent from "../home/components/list-title-component"
 import AppBarComponent from "../../common/components/app-bar-component"
 export default {
   name: 'root-component',

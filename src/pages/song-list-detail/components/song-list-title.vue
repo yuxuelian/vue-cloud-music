@@ -1,9 +1,12 @@
 <template>
   <div
   class="stick-container"
-  :style="`top:${AppBarHeight+StatusBarHeight}px;`"
   >
-    <div class="song-list-title solid-bottom">
+    <div
+    class="song-list-title solid-bottom"
+    :class="isFixedPosition?'fixed-position':''"
+    :style="`top:${isFixedPosition?AppBarHeight+StatusBarHeight:0}px;`"
+    >
       <div class="left-btn">
         <div class="play-icon">
           <i class="cuIcon-video text-sl text-black"></i>
@@ -11,13 +14,13 @@
         <div class="text-xl text-black">播放全部</div>
         <div class="text-sm text-grey margin-left-xs margin-right-xs">(共{{songListCount}}首)</div>
       </div>
-      <button
+      <div
       class="right-btn cu-btn round bg-cloud-red padding-xs margin-right-xs"
       @click.stop.prevent="clickLikeBtn"
       >
         <i class="cuIcon-add text-xxl text-white"></i>
         <span class="text-sm text-white">收藏({{likeCount}})</span>
-      </button>
+      </div>
     </div>
   </div>
 </template>
@@ -34,6 +37,12 @@ export default {
     likeCount: {
       type: [Number, String],
       required: true
+    },
+    isFixedPosition: {
+      type: Boolean,
+      default() {
+        return false
+      }
     }
   },
   data() {
@@ -53,8 +62,8 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
 .stick-container
-  position -webkit-sticky
-  position sticky
+  width 100%
+  height 50px
 
   .song-list-title
     width 100%
@@ -67,10 +76,17 @@ export default {
     border-top-left-radius 25px
     border-top-right-radius 25px
 
+    &.fixed-position
+      position fixed
+      left 0
+      right 0
+      z-index 9998
+
     .left-btn
       display flex
       align-items center
       flex-direction row
+      border-top-left-radius 25px
 
       &:active
         background-color #fadbd9

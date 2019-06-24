@@ -1,76 +1,79 @@
 <template>
-  <div class="discover-component">
-    <banner-component
-    :swiperData="swiperData"
-    @swiperClick="swiperClick"
-    >
-    </banner-component>
+  <div class="discover-component-wrapper" ref="discoverComponentWrapper">
+    <div class="discover-component">
+      <banner-component
+      :swiperData="swiperData"
+      @swiperClick="swiperClick"
+      >
+      </banner-component>
 
-    <btn-container
-    :btnData="btnData"
-    @selectBtn="selectBtn"
-    >
-    </btn-container>
+      <btn-container
+      :btnData="btnData"
+      @selectBtn="selectBtn"
+      >
+      </btn-container>
 
-    <list-title-component
-    :title="'推荐歌单'"
-    :rightText="hotSongList.length>6?'更多':''"
-    @clickRight="clickMore1"
-    >
-    </list-title-component>
+      <list-title-component
+      :title="'推荐歌单'"
+      :rightText="hotSongList.length>6?'更多':''"
+      @clickRight="clickMore1"
+      >
+      </list-title-component>
 
-    <grid-component
-    :gridData="hotSongList.slice(0,6)"
-    @selectGridItem="selectGridItem0"
-    >
-    </grid-component>
+      <grid-component
+      :gridData="hotSongList.slice(0,6)"
+      @selectGridItem="selectGridItem0"
+      >
+      </grid-component>
 
-    <list-title-component
-    :title="'推荐MV'"
-    :rightText="hotMvList.length>3?'更多':''"
-    @clickRight="clickMore2"
-    >
-    </list-title-component>
+      <list-title-component
+      :title="'推荐MV'"
+      :rightText="hotMvList.length>3?'更多':''"
+      @clickRight="clickMore2"
+      >
+      </list-title-component>
 
-    <grid-component
-    :gridData="hotMvList.slice(0,3)"
-    @selectGridItem="selectGridItem1"
-    >
-    </grid-component>
+      <grid-component
+      :gridData="hotMvList.slice(0,3)"
+      @selectGridItem="selectGridItem1"
+      >
+      </grid-component>
 
-    <list-title-component
-    :title="'推荐电台'"
-    :rightText="djprogramList.length>6?'更多':''"
-    @clickRight="clickMore2"
-    >
-    </list-title-component>
+      <list-title-component
+      :title="'推荐电台'"
+      :rightText="djprogramList.length>6?'更多':''"
+      @clickRight="clickMore2"
+      >
+      </list-title-component>
 
-    <grid-component
-    :gridData="djprogramList.slice(0,6)"
-    @selectGridItem="selectGridItem2"
-    >
-    </grid-component>
+      <grid-component
+      :gridData="djprogramList.slice(0,6)"
+      @selectGridItem="selectGridItem2"
+      >
+      </grid-component>
 
-    <list-title-component
-    :title="'独家放送'"
-    :rightText="privatecontentList.length>6?'更多':''"
-    @clickRight="clickMore2"
-    >
-    </list-title-component>
+      <list-title-component
+      :title="'独家放送'"
+      :rightText="privatecontentList.length>6?'更多':''"
+      @clickRight="clickMore2"
+      >
+      </list-title-component>
 
-    <grid-component
-    :gridData="privatecontentList.slice(0,6)"
-    @selectGridItem="selectGridItem3"
-    >
-    </grid-component>
+      <grid-component
+      :gridData="privatecontentList.slice(0,6)"
+      @selectGridItem="selectGridItem3"
+      >
+      </grid-component>
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-import BannerComponent from './banner-component'
-import BtnContainer from "./btn-container"
-import ListTitleComponent from "../../../common/components/list-title-component"
+import BannerComponent from '../components/banner-component'
+import BtnContainer from "../components/btn-container"
+import ListTitleComponent from "../components/list-title-component"
 import GridComponent from "../../../common/components/grid-component"
+import BScroll from 'better-scroll'
 export default {
   name: 'discover-component',
   components: {
@@ -86,27 +89,27 @@ export default {
       btnData: [
         {
           id: 0,
-          imageSrc: '/src/images/cm4_disc_topbtn_daily-ip6@2x.png',
+          imageSrc: 'images/cm4_disc_topbtn_daily-ip6@2x.png',
           name: '每日推荐',
-          toPageName: 'day-recommend'
+          routeName: 'day-recommend'
         },
         {
           id: 1,
-          imageSrc: '/src/images/cm2_discover_icn_fm-ip6@2x.png',
+          imageSrc: 'images/cm2_discover_icn_fm-ip6@2x.png',
           name: '歌单',
-          toPageName: 'song-list'
+          routeName: 'song-list'
         },
         {
           id: 2,
-          imageSrc: '/src/images/cm2_discover_icn_upbill-ip6@2x.png',
+          imageSrc: 'images/cm2_discover_icn_upbill-ip6@2x.png',
           name: '排行榜',
-          toPageName: 'rank-list'
+          routeName: 'rank-list'
         },
         {
           id: 3,
-          imageSrc: '../../../images/cm2_discover_icn_fm-ip6@2x.png',
+          imageSrc: 'images/cm2_discover_icn_fm-ip6@2x.png',
           name: '电台',
-          toPageName: 'broad-station'
+          routeName: 'broad-station'
         },
       ],
       hotSongList: [],
@@ -115,14 +118,22 @@ export default {
       privatecontentList: [],
     }
   },
-  watch: {},
+  watch: {
+    privatecontentList() {
+      if (this.scroll) {
+        this.$nextTick(() => {
+          this.scroll.refresh()
+        })
+      }
+    }
+  },
   computed: {},
   methods: {
     swiperClick(index) {
       console.log('点击SwiperItem index= ' + index)
     },
     selectBtn(index) {
-      const routeName = this.btnData[index].toPageName
+      const routeName = this.btnData[index].routeName
       this.$router.push({name: routeName})
     },
     clickMore1() {
@@ -163,10 +174,8 @@ export default {
       })
     },
     async requestHotSongList() {
-      console.log('requestHotSongList')
       // 推荐歌单
       const hotSongListData = await this.$axios.get('/personalized')
-      console.log(hotSongListData)
       this.hotSongList = hotSongListData.data.result.map((item) => {
         return {
           id: item.id,
@@ -217,14 +226,42 @@ export default {
     this.requestHotMvList()
     this.requestDjprogramList()
     this.requestPrivatecontentList()
+    if (!this.scroll) {
+      this.scroll = new BScroll(this.$refs.discoverComponentWrapper, {
+        click: true
+      })
+    }
+  },
+  activated() {
+    if (this.scroll) {
+      this.$nextTick(() => {
+        this.scroll.refresh()
+      })
+    }
+    window.onresize = () => {
+      if (this.scroll) {
+        this.$nextTick(() => {
+          this.scroll.refresh()
+        })
+      }
+    }
+  },
+  deactivated() {
+    window.onresize = undefined
   }
 }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-.discover-component
+.discover-component-wrapper
   width 100%
-  display flex
-  flex-direction column
+  height 100%
+  flex 1
+  overflow hidden
+
+  .discover-component
+    width 100%
+    display flex
+    flex-direction column
 </style>
 

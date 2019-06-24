@@ -1,6 +1,6 @@
 <template>
   <drawer-component ref="drawerComponent">
-    <div slot="drawerPage" class="drawer-page-content">
+    <div slot="drawerPage" class="drawer-page-container">
 
       <app-bar-component>
         <span slot="backText">返回</span>
@@ -79,11 +79,11 @@ export default {
   },
   watch: {
     allPlaylist() {
-      this.$nextTick(() => {
-        if (this.scroll) {
+      if (this.scroll) {
+        this.$nextTick(() => {
           this.scroll.refresh()
-        }
-      })
+        })
+      }
     }
   },
   computed: {},
@@ -160,32 +160,31 @@ export default {
   beforeCreate() {
   },
   created() {
+    this.requestPlaylistHot()
+    this.requestAllPlaylist()
   },
   beforeMount() {
   },
   mounted() {
-    // 启动的时候选择到第0页
-    this.currentPageIndex = 0
-    this.requestPlaylistHot()
-    this.requestAllPlaylist()
     if (!this.scroll) {
       this.scroll = new BScroll(this.$refs.drawerWindowWrapper, {
         click: true
       })
     }
     window.onreset = () => {
-      if (this.scroll) {
-        this.scroll.refresh()
-      }
+      this.$nextTick(()=>{
+        if (this.scroll) {
+          this.scroll.refresh()
+        }
+      })
     }
   },
-  beforeUpdate() {
-  },
-  updated() {
-  },
-  beforeDestroy() {
-  },
-  destroyed() {
+  activated() {
+    if (this.scroll) {
+      this.$nextTick(() => {
+        this.scroll.refresh()
+      })
+    }
   }
 }
 </script>
@@ -195,7 +194,7 @@ export default {
   width 100%
   height 100%
 
-.drawer-page-content
+.drawer-page-container
   display flex
   flex-direction column
   width 100%
