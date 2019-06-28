@@ -1,21 +1,26 @@
 <template>
-  <div class="swiper-super-wrapper">
-    <div class="swiper-parent-wrapper">
-      <swiper
-      ref="mySwiper"
-      class="my-swiper"
-      :options="swiperOption"
-      v-if="swiperData.length>0"
-      @tap="swiperClick"
+  <div class="slide-super-wrapper">
+    <div class="slide-parent-wrapper">
+      <cube-slide
+      ref="slide"
+      class="my-slide"
+      :data="slideData"
+      @change="changePage"
       >
-        <swiper-slide
-        v-for="(item,index) in swiperData"
+        <cube-slide-item
+        class="my-slide-item"
+        v-for="(item, index) in slideData"
         :key="index"
+        @click.native="clickHandler(index)"
         >
-          <img :src="item.imageUrl" class="swiper-img" alt="轮播图">
-        </swiper-slide>
-        <div class="swiper-pagination" slot="pagination"></div>
-      </swiper>
+          <img :src="item.imageUrl" class="slide-img" alt="轮播图">
+        </cube-slide-item>
+
+        <template slot="dots" slot-scope="props">
+          <span class="my-dot" :class="{active: props.current === index}"
+                v-for="(item, index) in props.dots"></span>
+        </template>
+      </cube-slide>
     </div>
   </div>
 </template>
@@ -25,32 +30,23 @@ export default {
   name: 'banner-component',
   components: {},
   props: {
-    swiperData: {
+    slideData: {
       type: Array,
       required: true
     }
   },
   data() {
-    return {
-      currentIndex: 0,
-      swiperOption: {
-        loop: true,
-        preventClicks: false,
-        autoplay: true,
-        pagination: {
-          el: '.swiper-pagination',
-        },
-        effect: 'slide',
-      }
-    }
+    return {}
   },
   watch: {},
   computed: {},
   methods: {
-    swiperClick() {
-      const index = this.$refs.mySwiper.swiper.realIndex
-      console.log('当前index = ' + index)
-    }
+    changePage(current) {
+      console.log(current)
+    },
+    clickHandler(index) {
+      console.log(index)
+    },
   },
   created() {
   },
@@ -60,25 +56,38 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-
-.swiper-pagination >>> .swiper-pagination-bullet-active
-  background #D33A31 !important
-
-.swiper-super-wrapper
+.slide-super-wrapper
   width 100%
 
-  .swiper-parent-wrapper
+  .slide-parent-wrapper
     position relative
     width 100%
     padding-bottom 36.8%
+    overflow hidden
 
-    .my-swiper
+    .my-slide
       position absolute
       width 100%
       height 100%
 
-      .swiper-img
+      .my-slide-item
         width 100%
         height 100%
+
+        .slide-img
+          width 100%
+          height 100%
+      .my-dot
+        width 8px
+        height 8px
+        background-color white
+        border-radius 4px
+        margin-right 4px
+        margin-bottom 10px
+        &:last-child
+          margin-right 0
+        &.active
+          width 16px
+          background-color #D33A31
 </style>
 

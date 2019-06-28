@@ -25,25 +25,25 @@
     <div class="btn-group">
       <div class="btn-container">
         <div class="btn">
-          <i class="btn-icon cuIcon-mark"></i>
+          <i class="btn-icon icon-share"></i>
           <div class="btn-text">{{playlist.commentCount}}</div>
         </div>
       </div>
       <div class="btn-container">
         <div class="btn">
-          <i class="btn-icon cuIcon-share"></i>
+          <i class="btn-icon icon-share"></i>
           <div class="btn-text">{{shareCountStr}}</div>
         </div>
       </div>
       <div class="btn-container">
         <div class="btn">
-          <i class="btn-icon cuIcon-down"></i>
+          <i class="btn-icon icon-download"></i>
           <div class="btn-text">下载</div>
         </div>
       </div>
       <div class="btn-container">
         <div class="btn">
-          <i class="btn-icon cuIcon-check"></i>
+          <i class="btn-icon icon-share"></i>
           <div class="btn-text">多选</div>
         </div>
       </div>

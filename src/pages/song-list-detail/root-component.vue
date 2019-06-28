@@ -113,6 +113,11 @@ export default {
   mounted() {
   },
   activated() {
+    // 默认清除一下Stick
+    this.isFixedListTitle = false
+    // 清除一下透明度
+    this.appBarAlpha = 0
+
     this.playlistSongs = []
     this.playlistDetailInfo = {}
     this.coverImgUrl = ''

@@ -1,11 +1,11 @@
 <template>
   <div class="grid">
-    <div class="grid-item margin-tb-mini" v-for="(item,index) in gridData" :key="item.id"
+    <div class="grid-item" v-for="(item,index) in gridData" :key="item.id"
          @click="clickItem(index)">
       <div class="img-container">
         <img class="img" v-lazy="item.imageUrl">
       </div>
-      <p class="text-sm text-black text-line-2">{{item.name}}</p>
+      <p class="img-des text-line-2">{{item.name}}</p>
     </div>
   </div>
 </template>
@@ -38,18 +38,32 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-.grid-item
-  width 32%
+.grid
+  width 100%
+  display flex
+  flex-direction row
+  flex-flow wrap
+  justify-content space-evenly
 
-  .img-container
-    width 100%
-    padding-bottom 100%
-    position relative
+  .grid-item
+    width 32%
 
-    .img
-      position absolute
+    .img-container
+      margin-top 4px
       width 100%
-      left 0
-      top 0
+      padding-bottom 100%
+      position relative
+
+      .img
+        position absolute
+        width 100%
+        left 0
+        top 0
+
+    .img-des
+      margin-top 4px
+      margin-bottom 4px
+      font-size 12px
+      color #303030
 </style>
 

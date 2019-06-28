@@ -1,19 +1,25 @@
 <template>
   <div
   class="app-bar-component-wrapper"
-  :style="`height:${AppBarHeight+StatusBarHeight}px;`"
+  :style="`height:${totalBarHeight}px;`"
   >
     <div
-    class="app-bar-component cu-bar text-white"
-    :style="`height:${AppBarHeight+StatusBarHeight}px;padding-top:${StatusBarHeight}px;background-color:${bgColor}`"
+    class="app-bar-component"
+    :style="`height:${AppBarHeight}px;padding-top:${StatusBarHeight}px;background-color:${bgColor};`"
     >
-      <div class="back-btn" @click="backPage" v-if="isBack">
-        <i class="cuIcon-back back-icon"></i>
-        <slot name="backText"></slot>
+      <div
+      class="bar-title" :style="`height:${AppBarHeight}px;`"
+      >
+        <slot name="content"></slot>
       </div>
 
-      <div class="bar-title">
-        <slot name="content"></slot>
+      <div
+      v-if="isBack"
+      class="back-btn" :style="`height:${AppBarHeight}px;`"
+      @click="backPage"
+      >
+        <i class="icon-left back-icon"></i>
+        <slot name="backText"></slot>
       </div>
     </div>
   </div>
@@ -22,7 +28,6 @@
 <script type="text/ecmascript-6">
 export default {
   name: 'app-bar-component',
-  components: {},
   props: {
     isBack: {
       type: Boolean,
@@ -43,28 +48,15 @@ export default {
       AppBarHeight: this.AppBarHeight,
     }
   },
-  watch: {},
-  computed: {},
+  computed: {
+    totalBarHeight() {
+      return this.AppBarHeight + this.StatusBarHeight
+    }
+  },
   methods: {
     backPage() {
       this.$router.go(-1)
     }
-  },
-  beforeCreate() {
-  },
-  created() {
-  },
-  beforeMount() {
-  },
-  mounted() {
-  },
-  beforeUpdate() {
-  },
-  updated() {
-  },
-  beforeDestroy() {
-  },
-  destroyed() {
   },
 }
 </script>
@@ -73,30 +65,32 @@ export default {
 .app-bar-component-wrapper
   width 100%
   position relative
+  color white
+  min-height 50px
 
 .app-bar-component
   width 100%
   position fixed
   z-index 9999
 
-  .back-btn
-    display flex
-    flex-direction row
-    align-items center
-    margin-left 10px
-    z-index 100
-    font-size 14px
-
-    .back-icon
-      margin-right 3px
-
   .bar-title
+    left 0
+    bottom 0
     position absolute
     width 100%
-    height 100%
     display flex
     align-items center
     justify-content center
+    font-size 18px
+    pointer-events none
+
+  .back-btn
+    width 60px
+    display flex
+    flex-direction row
+    align-items center
+    justify-content center
     font-size 16px
+
 </style>
 

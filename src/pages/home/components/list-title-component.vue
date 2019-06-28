@@ -1,13 +1,10 @@
 <template>
   <div class="list-title-component solid-top solid-bottom">
-    <div class='action'>
-      <i class='cuIcon-titles text-cloud-red icon-title'></i>
-      <span class="text-lg text-black">{{title}}</span>
-    </div>
+    <span class="title-text">{{title}}</span>
 
-    <div class='action margin-right-xs' v-if="rightText" @click="clickRight">
-      <span class="text-lg text-black ">{{rightText}}</span>
-      <i class='cuIcon-right text-gray icon-more'></i>
+    <div v-if="rightText"class="more-container" @click="clickRight">
+      <span>{{rightText}}</span>
+      <i class='icon-right'></i>
     </div>
   </div>
 </template>
@@ -52,16 +49,15 @@ export default {
   flex-direction row
   align-items center
   justify-content space-between
+  font-size 16px
 
-  .action
-    display flex
-    flex-direction row
-    align-items center
+  .title-text
+    border-left 2px solid red
+    margin-left 10px
+    padding-left 4px
 
-    .icon-title
-      font-size 16px
+  .more-container
+    margin-right 10px
 
-    .icon-more
-      font-size 20px
 </style>
 

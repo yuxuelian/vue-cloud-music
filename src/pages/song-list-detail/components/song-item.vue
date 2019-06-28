@@ -1,15 +1,15 @@
 <template>
   <div class="song-item solid-bottom">
-    <div class="song-index text-grey text-center text-xl">{{index+1}}</div>
+    <div class="song-index text-grey">{{index+1}}</div>
     <div class="song-info-container">
-      <div class="text-lg text-black text-line-1">{{song.name}}</div>
-      <div class="text-sm text-grey text-line-1">{{arNameJoin}} - {{song.alName}}</div>
+      <div class="song-name text-black text-line-1">{{song.name}}</div>
+      <div class="song-al text-grey text-line-1">{{arNameJoin}} - {{song.alName}}</div>
     </div>
     <div class="song-item-right-btn">
-      <i class="cuIcon-musicfill text-xxl text-grey"></i>
+      <i class="icon-share"></i>
     </div>
     <div class="song-item-right-btn">
-      <i class="cuIcon-moreandroid text-xxl text-grey"></i>
+      <i class="icon-share"></i>
     </div>
   </div>
 </template>
@@ -60,11 +60,20 @@ export default {
     height 50px
     width 50px
     line-height 50px
+    text-align center
+    font-size 18px
 
   .song-info-container
     display flex
     flex-direction column
     flex 1
+
+    .song-name
+      font-size 16px
+
+    .song-al
+      margin-top 4px
+      font-size 14px
 
   .song-item-right-btn
     height 50px

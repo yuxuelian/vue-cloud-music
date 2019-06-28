@@ -2,7 +2,7 @@
   <div class="discover-component-wrapper" ref="discoverComponentWrapper">
     <div class="discover-component">
       <banner-component
-      :swiperData="swiperData"
+      :slideData="slideData"
       @swiperClick="swiperClick"
       >
       </banner-component>
@@ -85,7 +85,7 @@ export default {
   props: {},
   data() {
     return {
-      swiperData: [],
+      slideData: [],
       btnData: [
         {
           id: 0,
@@ -164,7 +164,7 @@ export default {
     async requestBannerData() {
       // 获取轮播图
       const bannerData = await this.$axios.get('/banner')
-      this.swiperData = bannerData.data.banners.map((banner) => {
+      this.slideData = bannerData.data.banners.map((banner) => {
         // 重构数据
         return {
           id: banner.targetId,
@@ -255,7 +255,7 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus" scoped>
 .discover-component-wrapper
   width 100%
-  height 100%
+  height 0
   flex 1
   overflow hidden
 

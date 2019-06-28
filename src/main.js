@@ -1,10 +1,8 @@
 import Vue from 'vue'
-// 导入css
-import './colorui/animation.css'
-import './colorui/icon.css'
-import './colorui/main.css'
-import './common/stylus/common.styl'
+import './common/js/cube-ui'
+
 Vue.config.productionTip = false
+
 // 初始化图片懒加载插件
 import VueLazyLoad from 'vue-lazyload'
 Vue.use(VueLazyLoad, {
@@ -28,6 +26,7 @@ axiosInit()
 import App from './App'
 import router from './router/'
 import store from './store/'
+import 'amfe-flexible'
 new Vue({
   router,
   store,

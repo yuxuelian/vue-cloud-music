@@ -1,0 +1,151 @@
+.clearfix
+  display inline-block
+  
+  &:after
+    display block
+    content "."
+    height 0
+    line-height 0
+    clear both
+    visibility hidden
+
+.solid,
+.solid-top,
+.solid-right,
+.solid-bottom,
+.solid-left,
+.solids,
+.solids-top,
+.solids-right,
+.solids-bottom,
+.solids-left,
+.dashed,
+.dashed-top,
+.dashed-right,
+.dashed-bottom,
+.dashed-left
+  position relative
+
+.solid:after,
+.solid-top:after,
+.solid-right:after,
+.solid-bottom:after,
+.solid-left:after,
+.solids:after,
+.solids-top:after,
+.solids-right:after,
+.solids-bottom:after,
+.solids-left:after,
+.dashed:after,
+.dashed-top:after,
+.dashed-right:after,
+.dashed-bottom:after,
+.dashed-left:after
+  content " "
+  width 200%
+  height 200%
+  position absolute
+  top 0
+  left 0
+  border-radius inherit
+  transform scale(0.5)
+  transform-origin 0 0
+  pointer-events none
+  box-sizing border-box
+
+.solid:after
+  border 1px solid #909090
+
+.solid-top:after
+  border-top 1px solid #909090
+
+.solid-right:after
+  border-right 1px solid #909090
+
+.solid-bottom:after
+  border-bottom 1px solid #909090
+
+.solid-left:after
+  border-left 1px solid #909090
+
+.solids:after
+  border 8px solid #eee
+
+.solids-top:after
+  border-top 8px solid #eee
+
+.solids-right:after
+  border-right 8px solid #eee
+
+.solids-bottom:after
+  border-bottom 8px solid #eee
+
+.solids-left:after
+  border-left 8px solid #eee
+
+.dashed:after
+  border 1px dashed #ddd
+
+.dashed-top:after
+  border-top 1px dashed #ddd
+
+.dashed-right:after
+  border-right 1px dashed #ddd
+
+.dashed-bottom:after
+  border-bottom 1px dashed #ddd
+
+.dashed-left:after
+  border-left 1px dashed #ddd
+
+
+.text-line-1
+  overflow hidden
+  display -webkit-box
+  text-overflow ellipsis
+  -webkit-line-clamp 1
+  -webkit-box-orient vertical
+  white-space normal
+
+
+.text-line-2
+  overflow hidden
+  display -webkit-box
+  text-overflow ellipsis
+  -webkit-line-clamp 2
+  -webkit-box-orient vertical
+  white-space normal
+
+
+.text-line-3
+  overflow hidden
+  display -webkit-box
+  text-overflow ellipsis
+  -webkit-line-clamp 3
+  -webkit-box-orient vertical
+  white-space normal
+
+
+.text-cloud-red
+  color #D33A31
+
+.bg-cloud-red
+  background-color #D33A31
+
+.bg-cloud-red-active:active
+  background-color rgba(211, 58, 49, .6)
+  
+  
+.bg-transparent
+  background-color transparent
+
+.text-black
+  color #303030
+
+.text-grey
+  color #909090
+
+.flex-column
+  width 100%
+  display flex
+  flex-direction column

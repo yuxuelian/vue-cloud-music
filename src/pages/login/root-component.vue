@@ -11,11 +11,11 @@
     <div class="input-container">
       <div class="input-container">
         <i class="cuIcon-people"></i>
-        <input class="input text-line-1" type="number" v-model="phone">
+        <input class="input text-line-1" type="number" v-model="phone" placeholder="请输入手机号">
       </div>
       <div class="input-container">
         <i class="cuIcon-lock"></i>
-        <input class="input text-line-1" type="password" v-model="password">
+        <input class="input text-line-1" type="password" v-model="password" placeholder="请输入密码">
       </div>
       <div class="login-btn" @click="loginClick">登录</div>
     </div>

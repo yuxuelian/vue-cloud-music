@@ -2,30 +2,43 @@
   <drawer-component ref="drawerComponent">
     <div slot="drawerPage" class="drawer-page-container">
       <div
-      class="drawer-header cu-bar bg-cloud-red"
-      :style="`height:${AppBarHeight+StatusBarHeight};padding-top:${StatusBarHeight}px;`"
+      class="app-bar-component-wrapper"
+      :style="`height:${totalBarHeight}px;`"
       >
-        <div class="menu-btn" @click.prevent.stop="leftIconClick">
-          <i class="cuIcon-pullleft text-white"></i>
-        </div>
+        <div
+        class="app-bar-component bg-cloud-red"
+        :style="`height:${AppBarHeight}px;padding-top:${StatusBarHeight}px`"
+        >
+          <div
+          class="bar-title" :style="`height:${AppBarHeight}px;`"
+          >
+            <div class="action-item-container">
+              <router-link
+              tag="span"
+              class="action"
+              to="home-discover"
+              >
+                发现
+              </router-link>
+              <router-link
+              tag="span"
+              class="action"
+              to="home-mine"
+              >
+                我的
+              </router-link>
+            </div>
+          </div>
 
-        <div class="action-item-container">
-          <router-link
-          tag="span"
-          class="action-item"
-          to="home-discover"
+          <div
+          class="menu-btn" :style="`height:${AppBarHeight}px;width:${AppBarHeight}px;`"
+          @click.capture="leftIconClick"
           >
-            发现
-          </router-link>
-          <router-link
-          tag="span"
-          class="action-item"
-          to="home-mine"
-          >
-            我的
-          </router-link>
+            <i class="icon-menu"></i>
+          </div>
         </div>
       </div>
+
       <keep-alive>
         <router-view></router-view>
       </keep-alive>
@@ -56,7 +69,11 @@ export default {
     }
   },
   watch: {},
-  computed: {},
+  computed: {
+    totalBarHeight() {
+      return this.AppBarHeight + this.StatusBarHeight
+    }
+  },
   methods: {
     leftIconClick() {
       // 显示侧滑菜单
@@ -76,39 +93,52 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus" scoped>
 .drawer-page-container
   position absolute
+  left 0
+  top 0
   width 100%
   height 100%
   display flex
   flex-direction column
 
-  .drawer-header
-    /*height通过style动态设置*/
+  .app-bar-component-wrapper
     width 100%
+    position relative
+    min-height 50px
 
-  .menu-btn
-    position absolute
-    left 0
-    width 40px
-    height 40px
-    display flex
-    align-items center
-    justify-content center
-    font-size 24px
-    color white
+    .app-bar-component
+      width 100%
+      position fixed
+      z-index 9999
 
-  .action-item-container
-    margin 0 auto
-    font-size 16px
+      .bar-title
+        left 0
+        bottom 0
+        position absolute
+        width 100%
+        display flex
+        align-items center
+        justify-content center
+        font-size 18px
+        color #D0D0D0
+        z-index -1
 
-    .action-item
-      color #D0D0D0
-      margin-right 20px
+        .action
+          margin-right 6px
 
-      &:last-child
-        margin-right 0
+          &.router-link-active
+            color white
 
-      &.router-link-active
+          &:last-child
+            margin-right 0
+
+      .menu-btn
         color white
+        display flex
+        flex-direction row
+        align-items center
+        justify-content center
+        font-size 20px
+
 
 .slide-container
   width 100%
