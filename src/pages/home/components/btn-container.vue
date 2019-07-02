@@ -65,7 +65,7 @@ export default {
       border 1px solid #D33A31
 
       &:active
-        background-color blue
+        background-color rgba(211, 58, 49, .3)
 
       .image
         width 50px

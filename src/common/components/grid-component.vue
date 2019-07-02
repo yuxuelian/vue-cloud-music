@@ -46,7 +46,8 @@ export default {
   justify-content space-evenly
 
   .grid-item
-    width 32%
+    margin-top 4px
+    width 30%
 
     .img-container
       margin-top 4px
@@ -55,6 +56,7 @@ export default {
       position relative
 
       .img
+        border-radius 9px
         position absolute
         width 100%
         left 0

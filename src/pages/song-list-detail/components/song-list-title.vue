@@ -104,19 +104,16 @@ export default {
         justify-content center
 
     .right-btn
-      border-radius 20px
-      width 120px
+      border-radius 15px
+      width 100px
       margin-right 10px
-      height 40px
+      height 30px
       display flex
       align-items center
       justify-content center
       color white
-      font-size 16px
+      font-size 12px
       &:active
-        background-color
-      .text
-        margin-left 4px
-
+        background-color rgba(211, 58, 49, .6)
 </style>
 

@@ -4,8 +4,8 @@
       <div class="playlist-image-container">
         <img class="playlist-image"
              :src="playlistImage">
-        <span class="play-count bg-gradual-blue">
-          <i class="cuIcon-video"></i>
+        <span class="play-count">
+          <i class="icon-share"></i>
           <span class="count">{{playCountStr}}</span>
         </span>
       </div>

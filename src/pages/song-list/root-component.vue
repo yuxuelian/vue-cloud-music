@@ -7,13 +7,14 @@
         <span slot="content">歌单广场</span>
       </app-bar-component>
 
-      <cube-scroll-nav-bar
-      class="solid-bottom"
-      :current="currentTab"
-      :labels="tabLayoutTxts"
-      @change="changeHandler"
+      <tab-layout
+      ref="tabLayout"
+      :tabData="hotPlaylist"
+      :currentTabIndex="currentPageIndex"
+      @clickTabRightBtn="clickTabRightBtn"
+      @tabSelectChange="tabSelectChange"
       >
-      </cube-scroll-nav-bar>
+      </tab-layout>
 
       <swiper
       class="swiper-view-pager"
@@ -52,6 +53,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+import TabLayout from "./components/tab-layout"
 import DrawerComponent from "../../common/components/drawer-component"
 import BtnGroup from "./components/btn-group"
 import GridComponent from "../../common/components/grid-component"
@@ -62,7 +64,7 @@ export default {
   name: 'root-component',
   components: {
     PagerItemContent,
-    AppBarComponent, GridComponent, BtnGroup, DrawerComponent
+    AppBarComponent, GridComponent, BtnGroup, DrawerComponent, TabLayout
   },
   props: {},
   data() {
@@ -72,8 +74,7 @@ export default {
       hotPlaylist: [],
       allPlaylist: [],
       playlistDatas: [],
-      currentPageIndex: 0,
-      currentTab: '0',
+      currentPageIndex: 0
     }
   },
   watch: {
@@ -85,16 +86,14 @@ export default {
       }
     }
   },
-  computed: {
-    tabLayoutTxts() {
-      return this.hotPlaylist.map((item) => {
-        return item.name
-      })
-    }
-  },
+  computed: {},
   methods: {
-    changeHandler(cur) {
-      console.log(cur)
+    clickTabRightBtn() {
+      this.$refs.drawerComponent.showDrawer()
+    },
+    tabSelectChange(index) {
+      this.currentPageIndex = index
+      this.$refs.swiperViewPager.swiper.slideTo(index)
     },
     selectPlaylist(name) {
       console.log('选择的歌单类型是 name = ' + name)
@@ -214,4 +213,3 @@ export default {
         width 100%
         height 100%
 </style>
-
