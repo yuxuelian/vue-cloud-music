@@ -7,14 +7,18 @@ export default new Router({
   routes: [
     {
       path: '/home',
-      name: 'home',
-      alias: '/',
+      alias:'/',
+      // 有 children 的时候 不能定义 name 属性
+      // name: 'home',
       component: () => import('../pages/home/root-component'),
       children: [
         {
+          path: '/',
+          redirect: '/home-discover'
+        },
+        {
           path: '/home-discover',
           name: 'home-discover',
-          alias: '/',
           component: () => import('../pages/home/sub/discover-component'),
         },
         {

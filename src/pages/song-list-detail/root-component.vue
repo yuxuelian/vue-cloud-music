@@ -2,7 +2,7 @@
   <div class="root-component" ref="windowBox">
     <app-bar-component :bg-color="appBarBgColor">
       <div slot="backText">返回</div>
-      <div slot="content">歌单详情</div>
+      <div>歌单详情</div>
     </app-bar-component>
     <song-page-des
     :playlistImage="coverImgUrl"
@@ -117,7 +117,6 @@ export default {
     this.isFixedListTitle = false
     // 清除一下透明度
     this.appBarAlpha = 0
-
     this.playlistSongs = []
     this.playlistDetailInfo = {}
     this.coverImgUrl = ''
@@ -152,7 +151,9 @@ export default {
   width 100%
   display flex
   flex-direction column
-  position relative
+  position absolute
+  left 0
+  top 0
   overflow hidden
 
   .song-list

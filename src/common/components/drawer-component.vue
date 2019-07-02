@@ -50,7 +50,9 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
 .drawer-container
-  position fixed
+  position absolute
+  left 0
+  top 0
   width 100%
   height 100%
 

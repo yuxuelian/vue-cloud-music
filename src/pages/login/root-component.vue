@@ -2,7 +2,7 @@
   <div class="root-component">
     <app-bar-component>
       <span slot="backText">返回</span>
-      <span slot="content">登录</span>
+      <span>登录</span>
     </app-bar-component>
     <div class="ripple-layer">
       <img class="gif-wave" :src="wave" alt="水波纹">

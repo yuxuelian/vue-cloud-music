@@ -39,9 +39,13 @@
         </div>
       </div>
 
-      <keep-alive>
-        <router-view></router-view>
-      </keep-alive>
+      <div class="home-content">
+        <transition name="fade">
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
+        </transition>
+      </div>
     </div>
 
     <div slot="drawerWindow" class="slide-container bg-gradual-blue">
@@ -91,6 +95,12 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
+.fade-enter-active, .fade-leave-active
+  transition opacity .5s
+
+.fade-enter, .fade-leave-to
+  opacity 0
+
 .drawer-page-container
   position absolute
   left 0
@@ -140,6 +150,11 @@ export default {
         font-size 20px
 
 
+  .home-content
+    width 100%
+    height 0
+    flex 1
+    position relative
 .slide-container
   width 100%
   height 100%

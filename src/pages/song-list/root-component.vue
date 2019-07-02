@@ -4,7 +4,7 @@
 
       <app-bar-component>
         <span slot="backText">返回</span>
-        <span slot="content">歌单广场</span>
+        <span>歌单广场</span>
       </app-bar-component>
 
       <tab-layout

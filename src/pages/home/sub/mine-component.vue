@@ -17,4 +17,7 @@ export default {
   flex-direction column
   font-size 16px
   color #303030
+  position absolute
+  left 0
+  top 0
 </style>

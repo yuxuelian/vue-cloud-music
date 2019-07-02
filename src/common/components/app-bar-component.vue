@@ -10,7 +10,8 @@
       <div
       class="bar-title" :style="`height:${AppBarHeight}px;`"
       >
-        <slot name="content"></slot>
+        <!-- 不指定name即为默认插槽,外面可以使用 default  或者不指定 -->
+        <slot :contentProps="test" :test="'test'"></slot>
       </div>
 
       <div
@@ -46,6 +47,9 @@ export default {
     return {
       StatusBarHeight: this.StatusBarHeight,
       AppBarHeight: this.AppBarHeight,
+      test: {
+        name: '测试'
+      }
     }
   },
   computed: {

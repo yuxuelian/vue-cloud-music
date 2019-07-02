@@ -1,8 +1,13 @@
-<template>
+<template xmlns:v-slot="">
   <div class="root-component">
     <app-bar-component>
-      <span slot="backText">返回</span>
-      <span slot="content">每日推荐</span>
+      <template v-slot:backText>
+        <span>返回</span>
+      </template>
+      <!-- 当有多个具名插槽的时候,default这个默认插槽(:default)不能缩写 -->
+      <template v-slot:default="scopeProps">
+        <span>每日推荐{{scopeProps.contentProps.name}}-{{scopeProps.test}}</span>
+      </template>
     </app-bar-component>
   </div>
 </template>

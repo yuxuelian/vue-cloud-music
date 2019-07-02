@@ -2,7 +2,7 @@
   <div class="root-component">
     <app-bar-component>
       <span slot="backText">返回</span>
-      <span slot="content">排行榜</span>
+      <span>排行榜</span>
     </app-bar-component>
     <div class="rank-grid-wrapper">
       <div class="rank-grid-container">
@@ -52,14 +52,21 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-.rank-grid-wrapper
+.root-component
+  position absolute
+  left 0
+  top 0
   width 100%
+  overflow-x hidden
 
-  .rank-grid-container
+  .rank-grid-wrapper
     width 100%
-    display flex
-    flex-direction row
-    justify-content space-evenly
-    flex-flow wrap
+
+    .rank-grid-container
+      width 100%
+      display flex
+      flex-direction row
+      justify-content space-evenly
+      flex-flow wrap
 </style>
 

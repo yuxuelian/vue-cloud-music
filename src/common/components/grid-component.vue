@@ -1,7 +1,11 @@
 <template>
-  <div class="grid">
-    <div class="grid-item" v-for="(item,index) in gridData" :key="item.id"
-         @click="clickItem(index)">
+  <div class="grid-container">
+    <div
+    class="grid-item"
+    v-for="(item,index) in gridData"
+    :key="item.id"
+    @click="clickItem(index)"
+    >
       <div class="img-container">
         <img class="img" v-lazy="item.imageUrl">
       </div>
@@ -38,7 +42,7 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-.grid
+.grid-container
   width 100%
   display flex
   flex-direction row
@@ -52,15 +56,10 @@ export default {
     .img-container
       margin-top 4px
       width 100%
-      padding-bottom 100%
-      position relative
 
       .img
         border-radius 9px
-        position absolute
         width 100%
-        left 0
-        top 0
 
     .img-des
       margin-top 4px

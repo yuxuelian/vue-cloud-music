@@ -2,7 +2,7 @@
   <div class="root-component">
     <app-bar-component>
       <span slot="backText">返回</span>
-      <span slot="content">模板页</span>
+      <span>模板页</span>
     </app-bar-component>
     <div class="content">
       模板页
@@ -36,6 +36,10 @@ export default {
   display flex
   flex-direction column
   width 100%
+  position absolute
+  left 0
+  top 0
+
   .content
     width 100%
     font-size 16px
